@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// dark blue: #0c6ded
+// light    : #7aecfc
+import "./App.css";
+import React, { useEffect, useState } from "react";
+import Header from "./Components/Header.js";
+import Search from "./Components/Search";
+import { GlobalProvider } from "./GlobalContext";
+import { ShowWeather } from "./Components/ShowWeather.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <div className="App">
+        <Header></Header>
+        <Search></Search>
+        <ShowWeather></ShowWeather>
+      </div>
+    </GlobalProvider>
   );
 }
 
