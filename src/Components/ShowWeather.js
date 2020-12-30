@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../GlobalContext";
 import { getLocation } from "../services/getLocation";
 import { forecast } from "../services/forecast";
+import { windDirection } from "../services/windDirection";
+import { unixToStandard, unixToStandardFull } from "../services/unixToStandard";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
+    padding: theme.spacing(3),
+    marginBottom: "30px",
     color: theme.palette.text.secondary,
   },
   address: {
@@ -29,8 +31,11 @@ export const ShowWeather = () => {
   const classes = useStyles();
 
   const [global, setGlobal] = useContext(GlobalContext);
-  let [location, setLocation] = useState("Islamabad pakistan");
-  let [forecastRes, setForecastRes] = useState(33.7, 73.1);
+  let [location, setLocation] = useState(
+    "Islamabad, Islamabad Capital Territory, Pakistan"
+  );
+  let [forecastRes, setForecastRes] = useState();
+
   useEffect(() => {
     async function fetchLocation() {
       const location = await getLocation(global.address);
@@ -48,23 +53,87 @@ export const ShowWeather = () => {
     }
   }, [location]);
   console.log(forecastRes);
+
   if (location && forecastRes && forecastRes.current) {
     return (
       <div className={classes.root}>
         <h2 className={classes.address}>{location.place}</h2>
-        <Grid container>
-          <Grid item sm={6} xs={12}>
-            <h3 className={classes.h2}>Currenly</h3>
-            <p>
-              <i class="fas fa-thermometer-quarter fa-2x"></i>
-              &nbsp;&nbsp;
-              {forecastRes.current.temp}
-              &nbsp; &deg;C
-            </p>
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid item sm={4} xs={12}>
+              <h3 className={classes.h2}>Currenly</h3>
+              <p>
+                <i class="fas fa-thermometer-quarter fa-2x"></i>
+                &nbsp;&nbsp;
+                <span class="textBig black">
+                  {forecastRes.current.temp}
+                  &deg;&nbsp;C
+                </span>
+              </p>
+              <p>
+                Weather:{" "}
+                <span class="black">{forecastRes.current.weather[0].main}</span>
+              </p>
+            </Grid>
+            <Grid item sm={4} xs={12}>
+              <p>Humidity: {forecastRes.current.humidity}%</p>
+              <p>
+                Wind speed: {forecastRes.current.wind_speed}{" "}
+                {windDirection(forecastRes.current.wind_deg)}
+              </p>
+              <p>Dew Point: {forecastRes.current.dew_point}&deg; C</p>
+            </Grid>
+            <Grid item sm={4} xs={6}>
+              <p>Sunrise: {unixToStandard(forecastRes.current.sunrise)}</p>
+              <p>Sunset: {unixToStandard(forecastRes.current.sunset)}</p>
+              <p>Pressure: {forecastRes.current.pressuse} hpa</p>
+            </Grid>
           </Grid>
-          <Grid item sm={6} xs={12}></Grid>
-        </Grid>
-        Temperature is
+        </Paper>
+
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid item xs={12}>
+              <h3 className={classes.h3}>8 Days Report</h3>
+              {forecastRes.daily.map((val, ind, arr) => {
+                return (
+                  <div>
+                    <h4 id="ind">{unixToStandardFull(val.dt)}</h4>
+                    <Grid container>
+                      <Grid item sm={4} xs={12}>
+                        <p>
+                          <i class="fas fa-thermometer-quarter"></i>
+                          &nbsp;
+                          {val.temp.min} / {val.temp.max}
+                          &deg;&nbsp;C
+                        </p>
+                        <p>
+                          Weather:{" "}
+                          <span class="black">{val.weather[0].main}</span>
+                        </p>
+                      </Grid>
+                      <Grid item sm={4} xs={12}>
+                        <p>Humidity: {val.humidity}%</p>
+                        <p>
+                          Wind speed: {val.wind_speed}{" "}
+                          {windDirection(val.wind_deg)}
+                        </p>
+                        <p>Dew Point: {val.dew_point}&deg; C</p>
+                      </Grid>
+
+                      <Grid item sm={4} xs={6}>
+                        <p>Sunrise: {unixToStandard(val.sunrise)}</p>
+                        <p>Sunset: {unixToStandard(val.sunset)}</p>
+                        <p>Pressure: {val.pressuse} hpa</p>
+                      </Grid>
+                    </Grid>
+                    <div class="divider"></div>
+                  </div>
+                );
+              })}
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     );
   }

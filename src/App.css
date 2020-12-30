@@ -1,3 +1,37 @@
-.App {
-  text-align: center;
+body {
+  background-color: #e5e5e5;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #0c6ded;
+}
+.black {
+  color: #000;
+}
+.textBig {
+  font-size: 200%;
+  font-weight: bold;
+}
+.paper {
+  color: rgba(0, 0, 0, 0.54);
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  background-color: #fff;
+}
+.divider {
+  width: 90%;
+  height: 5px;
+  background-image: linear-gradient(to bottom right, #0c6ded, #7aecfc);
+  margin: 15px auto 35px;
+  border-radius: 15px;
+}
+.fa-thermometer-quarter {
+  color: rgb(255, 72, 0);
 }

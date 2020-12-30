@@ -5,7 +5,7 @@ export const getLocation = async (address) => {
     )}.json?access_token=pk.eyJ1IjoidGVjaG5pY2FscmVmZmVyIiwiYSI6ImNraXgyeHd3NzBqbjkyeHBhY28zMW5jbnMifQ.mWCcbo9y0X3jstDKCoGljQ&limit=1`
   );
   let { features } = await res.json();
-  if (features[0]) {
+  if (features && features[0]) {
     let location = {
       latitude: features[0].center[1],
       longitude: features[0].center[0],
