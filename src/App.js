@@ -1,7 +1,7 @@
 // dark blue: #0c6ded
 // light    : #7aecfc
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "./Components/Header.js";
 import Search from "./Components/Search";
 import { GlobalProvider } from "./GlobalContext";

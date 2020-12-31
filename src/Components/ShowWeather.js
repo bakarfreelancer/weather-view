@@ -145,6 +145,7 @@ export const ShowWeather = () => {
                       </div>
                     );
                   }
+                  return "";
                 })}
               </div>
             </Grid>
@@ -196,10 +197,12 @@ export const ShowWeather = () => {
                     </div>
                   );
                 }
+                return "";
               })}
             </Grid>
           </Grid>
         </Paper>
+        {console.clear()}
       </div>
     );
   }
@@ -216,6 +219,7 @@ export const ShowWeather = () => {
             </Grid>
           </Grid>
         </Paper>
+        {console.clear()}
       </div>
     );
   }
@@ -228,6 +232,7 @@ export const ShowWeather = () => {
           </Grid>
         </Grid>
       </Paper>
+      {console.clear()}
     </div>
   );
 };
