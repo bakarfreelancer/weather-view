@@ -9,6 +9,12 @@ h5,
 h6 {
   color: #0c6ded;
 }
+
+/* Grid */
+.d-flex {
+  display: flex;
+  align-items: center;
+}
 .black {
   color: #000;
 }
@@ -25,12 +31,38 @@ h6 {
   border-radius: 4px;
   background-color: #fff;
 }
+.hourlyGrid {
+  overflow-x: scroll;
+}
+
+.hourlyReportWraperParent {
+  width: max-content;
+}
+.hourlyReportWraper {
+  float: left;
+  border-right: 5px solid #27a2c8;
+  padding: 16px;
+  margin: 15px 0;
+  border-radius: 15px;
+}
+.hourlyReportWraperParent h4 {
+  width: fit-content;
+}
+
+.divider,
+.dividerVertical {
+  background-image: linear-gradient(to bottom right, #0c6ded, #7aecfc);
+  border-radius: 15px;
+}
 .divider {
   width: 90%;
   height: 5px;
-  background-image: linear-gradient(to bottom right, #0c6ded, #7aecfc);
   margin: 15px auto 35px;
-  border-radius: 15px;
+}
+.dividerVertical {
+  height: 90%;
+  width: 5px;
+  margin: 0 15px;
 }
 .fa-thermometer-quarter {
   color: rgb(255, 72, 0);

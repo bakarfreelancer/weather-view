@@ -3,7 +3,11 @@ import { GlobalContext } from "../GlobalContext";
 import { getLocation } from "../services/getLocation";
 import { forecast } from "../services/forecast";
 import { windDirection } from "../services/windDirection";
-import { unixToStandard, unixToStandardFull } from "../services/unixToStandard";
+import {
+  unixToStandard,
+  unixToStandardFull,
+  unixToStandard12Hrs,
+} from "../services/unixToStandard";
 
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
@@ -70,10 +74,14 @@ export const ShowWeather = () => {
                   &deg;&nbsp;C
                 </span>
               </p>
-              <p>
-                Weather:{" "}
-                <span class="black">{forecastRes.current.weather[0].main}</span>
-              </p>
+              <div class="d-flex">
+                <p>Weather: &nbsp;</p>
+                <img
+                  src={`images/${forecastRes.current.weather[0].main}.jpg`}
+                  alt="weather"
+                  width="40px"
+                />
+              </div>
             </Grid>
             <Grid item sm={4} xs={12}>
               <p>Humidity: {forecastRes.current.humidity}%</p>
@@ -86,7 +94,54 @@ export const ShowWeather = () => {
             <Grid item sm={4} xs={6}>
               <p>Sunrise: {unixToStandard(forecastRes.current.sunrise)}</p>
               <p>Sunset: {unixToStandard(forecastRes.current.sunset)}</p>
-              <p>Pressure: {forecastRes.current.pressuse} hpa</p>
+              <p>Pressure: {forecastRes.current.pressure} hpa</p>
+            </Grid>
+          </Grid>
+        </Paper>
+
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid item xs={12} class="hourlyGrid">
+              <h3 className={classes.h3}>Hourly</h3>
+              <div class="hourlyReportWraperParent">
+                {forecastRes.hourly.map((val, ind, arr) => {
+                  if (ind > 0 && ind < 16) {
+                    return (
+                      <div class="hourlyReportWraper">
+                        <h4 id="ind">
+                          <i class="far fa-clock"></i>{" "}
+                          {unixToStandard12Hrs(val.dt)}
+                        </h4>
+                        <div class="col">
+                          <p>
+                            <i class="fas fa-thermometer-quarter"></i>
+                            &nbsp;
+                            {val.temp}
+                            &deg;&nbsp;C
+                          </p>
+                          <div class="d-flex">
+                            <p>Weather: &nbsp;</p>
+                            <img
+                              src={`images/${val.weather[0].main}.jpg`}
+                              alt="weather"
+                              width="40px"
+                            />
+                          </div>
+                        </div>
+                        <div class="col">
+                          <p>Humidity: {val.humidity}%</p>
+                          <p>
+                            Wind speed: {val.wind_speed}{" "}
+                            {windDirection(val.wind_deg)}
+                          </p>
+                          <p>Dew Point: {val.dew_point}&deg; C</p>
+                        </div>
+                        <div class="dividerVertical"></div>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
             </Grid>
           </Grid>
         </Paper>
@@ -107,10 +162,14 @@ export const ShowWeather = () => {
                           {val.temp.min} / {val.temp.max}
                           &deg;&nbsp;C
                         </p>
-                        <p>
-                          Weather:{" "}
-                          <span class="black">{val.weather[0].main}</span>
-                        </p>
+                        <div class="d-flex">
+                          <p>Weather: &nbsp;</p>
+                          <img
+                            src={`images/${val.weather[0].main}.jpg`}
+                            alt="weather"
+                            width="40px"
+                          />
+                        </div>
                       </Grid>
                       <Grid item sm={4} xs={12}>
                         <p>Humidity: {val.humidity}%</p>
@@ -124,7 +183,7 @@ export const ShowWeather = () => {
                       <Grid item sm={4} xs={6}>
                         <p>Sunrise: {unixToStandard(val.sunrise)}</p>
                         <p>Sunset: {unixToStandard(val.sunset)}</p>
-                        <p>Pressure: {val.pressuse} hpa</p>
+                        <p>Pressure: {val.pressure} hpa</p>
                       </Grid>
                     </Grid>
                     <div class="divider"></div>
