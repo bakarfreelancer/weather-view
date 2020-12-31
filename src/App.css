@@ -1,6 +1,14 @@
 body {
   background-color: #e5e5e5;
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.App {
+  flex-grow: 1;
+}
 h1,
 h2,
 h3,
@@ -17,6 +25,10 @@ h6 {
 }
 .black {
   color: #000;
+}
+.error {
+  text-align: center;
+  color: red;
 }
 .textBig {
   font-size: 200%;
@@ -66,4 +78,13 @@ h6 {
 }
 .fa-thermometer-quarter {
   color: rgb(255, 72, 0);
+}
+.footer {
+  text-align: center;
+  background-color: rgb(110, 110, 110);
+  color: #fff;
+  padding: 15px;
+}
+.footer a {
+  color: #fff;
 }

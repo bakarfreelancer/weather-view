@@ -13,6 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#0c6ded",
     textAlign: "center",
   },
+  loader: {
+    margin: "auto",
+    textAlign: "center",
+  },
 }));
 
 export const ShowWeather = () => {
@@ -36,7 +41,7 @@ export const ShowWeather = () => {
 
   const [global, setGlobal] = useContext(GlobalContext);
   let [location, setLocation] = useState(
-    "Islamabad, Islamabad Capital Territory, Pakistan"
+    "Peshawar, Khyber Pakhtunkhwa, Pakistan"
   );
   let [forecastRes, setForecastRes] = useState();
 
@@ -56,7 +61,7 @@ export const ShowWeather = () => {
       fetchForecast();
     }
   }, [location]);
-  console.log(forecastRes);
+  // console.log(forecastRes);
 
   if (location && forecastRes && forecastRes.current) {
     return (
@@ -151,44 +156,46 @@ export const ShowWeather = () => {
             <Grid item xs={12}>
               <h3 className={classes.h3}>8 Days Report</h3>
               {forecastRes.daily.map((val, ind, arr) => {
-                return (
-                  <div>
-                    <h4 id="ind">{unixToStandardFull(val.dt)}</h4>
-                    <Grid container>
-                      <Grid item sm={4} xs={12}>
-                        <p>
-                          <i class="fas fa-thermometer-quarter"></i>
-                          &nbsp;
-                          {val.temp.min} / {val.temp.max}
-                          &deg;&nbsp;C
-                        </p>
-                        <div class="d-flex">
-                          <p>Weather: &nbsp;</p>
-                          <img
-                            src={`images/${val.weather[0].main}.jpg`}
-                            alt="weather"
-                            width="40px"
-                          />
-                        </div>
-                      </Grid>
-                      <Grid item sm={4} xs={12}>
-                        <p>Humidity: {val.humidity}%</p>
-                        <p>
-                          Wind speed: {val.wind_speed}{" "}
-                          {windDirection(val.wind_deg)}
-                        </p>
-                        <p>Dew Point: {val.dew_point}&deg; C</p>
-                      </Grid>
+                if (ind > 0) {
+                  return (
+                    <div>
+                      <h4 id="ind">{unixToStandardFull(val.dt)}</h4>
+                      <Grid container>
+                        <Grid item sm={4} xs={12}>
+                          <p>
+                            <i class="fas fa-thermometer-quarter"></i>
+                            &nbsp;
+                            {val.temp.min} / {val.temp.max}
+                            &deg;&nbsp;C
+                          </p>
+                          <div class="d-flex">
+                            <p>Weather: &nbsp;</p>
+                            <img
+                              src={`images/${val.weather[0].main}.jpg`}
+                              alt="weather"
+                              width="40px"
+                            />
+                          </div>
+                        </Grid>
+                        <Grid item sm={4} xs={12}>
+                          <p>Humidity: {val.humidity}%</p>
+                          <p>
+                            Wind speed: {val.wind_speed}{" "}
+                            {windDirection(val.wind_deg)}
+                          </p>
+                          <p>Dew Point: {val.dew_point}&deg; C</p>
+                        </Grid>
 
-                      <Grid item sm={4} xs={6}>
-                        <p>Sunrise: {unixToStandard(val.sunrise)}</p>
-                        <p>Sunset: {unixToStandard(val.sunset)}</p>
-                        <p>Pressure: {val.pressure} hpa</p>
+                        <Grid item sm={4} xs={6}>
+                          <p>Sunrise: {unixToStandard(val.sunrise)}</p>
+                          <p>Sunset: {unixToStandard(val.sunset)}</p>
+                          <p>Pressure: {val.pressure} hpa</p>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                    <div class="divider"></div>
-                  </div>
-                );
+                      <div class="divider"></div>
+                    </div>
+                  );
+                }
               })}
             </Grid>
           </Grid>
@@ -197,7 +204,30 @@ export const ShowWeather = () => {
     );
   }
   if (location) {
-    return <div>{location.place}</div>;
+    return (
+      <div className={classes.root}>
+        <h2 className={classes.address}>{location.place}</h2>
+        <Paper className={classes.paper}>
+          <Grid container>
+            <Grid item xs={12}>
+              <div className={classes.loader}>
+                <CircularProgress />
+              </div>
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+    );
   }
-  return <div>Search valid location</div>;
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container>
+          <Grid item xs={12}>
+            <h2 class="error">Please enter valid location!</h2>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
+  );
 };

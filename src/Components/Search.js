@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   searchInput: {
     width: "300px",
   },
+  searchButton: {
+    backgroundImage: "linear-gradient(to bottom right,#0c6ded, #7aecfc)",
+    color: "#fff",
+  },
 }));
 
 export default function Search() {
@@ -54,7 +58,7 @@ export default function Search() {
             />
           </Grid>
           <Grid item>
-            <Button onClick={getAddress}>
+            <Button onClick={getAddress} className={classes.searchButton}>
               <SearchOutlinedIcon />
             </Button>
           </Grid>

@@ -6,6 +6,7 @@ import Header from "./Components/Header.js";
 import Search from "./Components/Search";
 import { GlobalProvider } from "./GlobalContext";
 import { ShowWeather } from "./Components/ShowWeather.js";
+import { Footer } from "./Components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Search></Search>
         <ShowWeather></ShowWeather>
       </div>
+      <Footer></Footer>
     </GlobalProvider>
   );
 }
