@@ -18,10 +18,12 @@ h6 {
   color: #0c6ded;
 }
 
-/* Grid */
 .d-flex {
   display: flex;
   align-items: center;
+}
+.p50 {
+  padding: 50px;
 }
 .black {
   color: #000;
@@ -87,4 +89,21 @@ h6 {
 }
 .footer a {
   color: #fff;
+}
+@media (max-width: 676px) {
+  .p50 {
+    padding: 15px !important;
+  }
+}
+
+@media (max-width: 427px) {
+  .p50 {
+    padding: 10px !important;
+  }
+  .MuiGrid-item button {
+    width: calc(100vw - 25px);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
 }

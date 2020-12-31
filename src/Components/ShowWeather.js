@@ -18,7 +18,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: 50,
     textAlign: "left",
   },
   paper: {
@@ -65,7 +64,7 @@ export const ShowWeather = () => {
 
   if (location && forecastRes && forecastRes.current) {
     return (
-      <div className={classes.root}>
+      <div className={classes.root} class="p50">
         <h2 className={classes.address}>{location.place}</h2>
         <Paper className={classes.paper}>
           <Grid container>
