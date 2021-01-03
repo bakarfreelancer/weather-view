@@ -154,7 +154,7 @@ export const ShowWeather = () => {
         <Paper className={classes.paper}>
           <Grid container>
             <Grid item xs={12}>
-              <h3 className={classes.h3}>8 Days Report</h3>
+              <h3 className={classes.h3}>7 Days Report</h3>
               {forecastRes.daily.map((val, ind, arr) => {
                 if (ind > 0) {
                   return (
